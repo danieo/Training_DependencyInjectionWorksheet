@@ -8,13 +8,19 @@ namespace DependencyInjection_Worksheet
     // You are also not allow to edit the method signature of the
     // GenerateNotification method
     //
+
     public class PublicHolidayNotifier
     {
+        private readonly IDateGenerator _DateGenerator;
+        
+        public PublicHolidayNotifier (IDateGenerator dateGenerator)
+        {
+            _DateGenerator = dateGenerator;
+        }
+
         public string GenerateNotification()
         {
-            if (DateTime.Now.Date == new DateTime(2013, 6, 17))
-                return "Today is Youth Day";
-            return "Today is a normal day";
+            return _DateGenerator.Generate() == new DateTime(2013, 6, 17) ? "Today is Youth Day" : "Today is a normal day";
         }
     }
 }
